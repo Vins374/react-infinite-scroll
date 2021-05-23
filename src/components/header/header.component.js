@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { Button, AppBar, Toolbar, Typography } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     height: 80,
@@ -14,8 +14,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header({ title, ...props}) {
+export default function Header({ title }) {
   const classes = useStyles();
+  const history = useHistory();
+
+  const logout = () => {
+      localStorage.setItem("loggedIn", "");
+      history.push("/");
+  }
 
   return (
     <div className={classes.root}>
@@ -24,8 +30,13 @@ export default function Header({ title, ...props}) {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
+          <Button onClick={() => logout()} color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+
+Header.propTypes = {
+    title: PropTypes.string,
+  };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ListCard({ name, desc, image, ...props}) {
+export default function ListCard({ name, desc, image}) {
   const classes = useStyles();
 
   return (
@@ -49,4 +50,10 @@ export default function ListCard({ name, desc, image, ...props}) {
       </CardActions>
     </Card>
   );
-}
+  }
+
+ListCard.propTypes = {
+    name: PropTypes.string,
+    desc: PropTypes.string,
+    image: PropTypes.string,
+  };
