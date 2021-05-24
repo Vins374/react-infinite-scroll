@@ -22,7 +22,7 @@ const Home = () => {
       setList([...list, ...ListData]);
       if(count >= 100)
         setHasMore(false);
-    },2000);
+    },1000);
   }
 
   const Loader = () => (

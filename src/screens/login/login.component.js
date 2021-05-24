@@ -4,14 +4,14 @@ import {
     Card, 
     TextField, 
     Grid,
-    Button 
+    Button, 
 } from "@material-ui/core";
 import { useHistory } from 'react-router-dom';
-
 import Header from "./../../components/header/header.component";
 
 const Login = () => {
     const history = useHistory();
+    const [error, setError] = useState("");
 
     const [inputField , setInputField] = useState({
         username: '',
@@ -23,9 +23,14 @@ const Login = () => {
     }
 
     const onSubmitHandler = (e) => {
-        console.log(inputField);
-        localStorage.setItem("loggedIn", true);
-        history.push("/home");
+        setError("");
+        if(inputField.username === "foo" && inputField.password === "bar") {
+            localStorage.setItem("loggedIn", true);
+            history.push("/home");
+        }
+        else {
+            setError("Invalid username and password")
+        }        
         e.preventDefault();
     }
 
@@ -38,7 +43,6 @@ const Login = () => {
     return (
         <>
         <Header title="Login" />
-
         <Grid container spacing={3}>
             <Grid item xs={12} sm={4}>
             </Grid>
@@ -55,12 +59,13 @@ const Login = () => {
                     <Button onClick={(e) => onSubmitHandler(e)} type="submit" variant="contained" color="primary">
                         Submit
                     </Button>
+
+                    <p> {error} </p>
                 </Box>
                 </form>
             </Card>
             </Grid>
         </Grid>
-        
         </>
     )
 }
