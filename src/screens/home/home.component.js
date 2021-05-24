@@ -15,14 +15,19 @@ const Home = () => {
   const refContainer = useRef();
 
   const fetchData = () => {
-    console.log("Fetching data");
-    // INFO : Mock fake api delay
-    setTimeout(() => {
-      setCount(count+fetchCount);
-      setList([...list, ...ListData]);
-      if(count >= 100)
-        setHasMore(false);
-    },1000);
+    try {
+      console.log("Fetching data");
+      // INFO : Mock fake api delay
+      setTimeout(() => {
+        setCount(count+fetchCount);
+        setList([...list, ...ListData]);
+        if(count >= 100)
+          setHasMore(false);
+      },1000);
+    }
+    catch(err) {
+      console.log(err);
+    }
   }
 
   const Loader = () => (

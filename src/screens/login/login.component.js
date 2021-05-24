@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 import { 
     Box, 
     Card, 
@@ -6,7 +7,6 @@ import {
     Grid,
     Button, 
 } from "@material-ui/core";
-import { useHistory } from 'react-router-dom';
 import Header from "./../../components/header/header.component";
 
 const Login = () => {
@@ -23,14 +23,19 @@ const Login = () => {
     }
 
     const onSubmitHandler = (e) => {
-        setError("");
-        if(inputField.username === "foo" && inputField.password === "bar") {
-            localStorage.setItem("loggedIn", true);
-            history.push("/home");
+        try {
+            setError("");
+            if(inputField.username === "foo" && inputField.password === "bar") {
+                localStorage.setItem("loggedIn", true);
+                history.push("/home");
+            }
+            else {
+                setError("Invalid username and password")
+            }        
         }
-        else {
-            setError("Invalid username and password")
-        }        
+        catch(err) {
+            setError("Something went wrong, please try after sometime.")
+        }
         e.preventDefault();
     }
 
@@ -59,7 +64,6 @@ const Login = () => {
                     <Button onClick={(e) => onSubmitHandler(e)} type="submit" variant="contained" color="primary">
                         Submit
                     </Button>
-
                     <p> {error} </p>
                 </Box>
                 </form>
